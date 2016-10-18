@@ -1,3 +1,9 @@
+var ap = process.env.APPLICATION_PORT
+
+console.log(ap)
+
+console.log(process.argv[2])
+
 var fs = require('fs')
 
 fs.readdir(__dirname + '/data', function(err, files){
