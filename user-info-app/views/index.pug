@@ -1,0 +1,10 @@
+html
+	head
+	body
+		h1 Country Information App
+		h2 Users:
+		each thing in data
+			p Name: #{thing.firstname} #{thing.lastname}
+			ul
+				li Email: #{thing.email}
+			<br>
