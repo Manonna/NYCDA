@@ -2,3 +2,8 @@ html
 	head
 	body
 		h1 Search Users Here
+		form(method="POST", action="/search")
+			input(type="hidden", name="_method", value="PUT")
+			p Search users:
+				input(type="text", name="name")
+				input(type="submit")
