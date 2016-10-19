@@ -11,6 +11,7 @@ app.set ( 'views', __dirname + '/views' )
 let urlencodedParser = bodyParser.urlencoded({ extended: true })
 let jsonParser 		 = bodyParser.json()
 
+//user list path
 app.get( '/users', (req, res) =>{
 	console.log ('rendering....')
 	fs.readFile(__dirname + '/users.json', (err, data) => {
@@ -21,10 +22,12 @@ app.get( '/users', (req, res) =>{
 	})
 })
 
+//user search path
 app.get( '/search', (req, res) =>{
 	res.render('search')
 })
 
+//user search function
 app.post( '/search', urlencodedParser, (req, res) => {
 	console.log("someone searched for " + "\"" + req.body.name + "\"")
 
@@ -47,9 +50,28 @@ app.post( '/search', urlencodedParser, (req, res) => {
 	})
 })
 
+//add user path
 app.get ( '/add', (req, res) =>{
 	res.render('add')
 })
+
+//add user function
+app.post('/add', urlencodedParser, (req, res) => {
+	console.log ("someone added a new user")
+	fs.readFile(__dirname + '/users.json', (err, data) => {
+		if (err) throw err
+			let parsedData = JSON.parse(data)
+		parsedData.push(req.body)
+		data = JSON.stringify(parsedData)
+	fs.writeFile(__dirname + '/users.json', data, (err) => {
+		if (err) throw err
+			console.log('new user added')
+	})
+	})
+	
+})
+
+
 
 app.listen(8000, () => {
 	console.log('Server running')

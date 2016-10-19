@@ -2,8 +2,7 @@ html
 	head
 	body
 		h1 Add new user
-		form(method="POST", action="/search")
-			input(type="hidden", name="_method", value="PUT")
+		form(method="POST", action="/add", name="_method", value="PUT")
 			p Firstname:
 			p
 				input(type="text", name="firstname")
