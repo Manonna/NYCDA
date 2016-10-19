@@ -9,6 +9,7 @@
   "author": "Manon",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.15.2"
+    "body-parser": "^1.15.2",
+    "express-form": "^0.12.6"
   }
 }

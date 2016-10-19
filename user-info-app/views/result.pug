@@ -1,0 +1,9 @@
+html
+	head
+	body
+		h2 These are the users that match your search:
+		ul
+			li
+				each thing in result
+					p User: #{thing.firstname} #{thing.lastname}
+					p Email: #{thing.email}
