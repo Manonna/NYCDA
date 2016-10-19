@@ -57,16 +57,16 @@ app.get ( '/add', (req, res) =>{
 
 //add user function
 app.post('/add', urlencodedParser, (req, res) => {
-	console.log ("someone added a new user")
 	fs.readFile(__dirname + '/users.json', (err, data) => {
 		if (err) throw err
 			let parsedData = JSON.parse(data)
 		parsedData.push(req.body)
 		data = JSON.stringify(parsedData)
-	fs.writeFile(__dirname + '/users.json', data, (err) => {
-		if (err) throw err
-			console.log('new user added')
-	})
+		fs.writeFile(__dirname + '/users.json', data, (err) => {
+			if (err) throw err
+				console.log('new user added:' + req.body)
+				res.redirect('/users')
+		})
 	})
 	
 })
