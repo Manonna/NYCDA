@@ -27,12 +27,16 @@ app.get( '/search', (req, res) =>{
 
 app.post( '/search', urlencodedParser, (req, res) => {
 	console.log("someone searched for " + "\"" + req.body.name + "\"")
-	//res.render('result', {name: req.body.name})
+
+	//create empty array to loop over in pug
 	let searchResult = []
+
+	//read and parse users.json
 	fs.readFile(__dirname + '/users.json', (err, data) => {
 		if (err) throw err
 			let parsedData = JSON.parse(data)
 
+		//loop over users.json to check if the search term matches first or last name
 		for (var i = parsedData.length - 1; i >= 0; i--) {
 			if (parsedData[i].firstname == req.body.name || parsedData[i].lastname == req.body.name) {
 				searchResult.push (parsedData[i])
@@ -40,8 +44,11 @@ app.post( '/search', urlencodedParser, (req, res) => {
 				//console.log(searchResult)
 			}
 		}
-
 	})
+})
+
+app.get ( '/add', (req, res) =>{
+	res.render('add')
 })
 
 app.listen(8000, () => {

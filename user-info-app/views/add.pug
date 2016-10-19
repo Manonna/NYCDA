@@ -1,0 +1,20 @@
+html
+	head
+	body
+		h1 Add new user
+		form(method="POST", action="/search")
+			input(type="hidden", name="_method", value="PUT")
+			p Firstname:
+			p
+				input(type="text", name="firstname")
+			<br>
+			p Lastname:
+			p
+				input(type="text", name="lastname")
+			<br>
+			p Email:
+			p
+				input(type="email", name="email")
+			p
+			<br>
+				input(type="submit", value="Add user")
