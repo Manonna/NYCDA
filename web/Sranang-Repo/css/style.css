@@ -1,0 +1,462 @@
+img {
+	max-width:100%;
+}
+
+body {
+	background-color: #ecddc7
+}
+.top-title {
+	color: yellow;
+	font-size: 20px;
+}
+
+/* NAVIGATION AREA */
+
+.navbar-brand img{
+	max-height:75px;
+	max-width:250px;
+	margin-top: -20px;
+
+}
+
+/* When the Menu is clicked, the orange text stays active */
+
+.collapse ul.nav .navactive{
+	color:#e44d1f!important;
+}
+
+/* ABOUT AREA */
+
+#story p{
+	font-size:16px;
+	color:#553739;
+}
+
+#story h1{
+	color:#553739;
+	border:1px solid #553739;
+}
+
+.img-section {
+	padding-top: 50px;
+	max-height: 500px
+}
+
+.img-section img{
+	border-radius: 100px;
+	max-height: 500px
+}
+
+/* CATERING AREA */
+
+#carousel-example-generic {
+	padding-top: 75px;
+/*	max-height:250px;*/
+}
+
+#slider-catering img{
+	border-radius: 100px;
+	max-height:250px;
+}
+
+#featured p{
+	font-size:16px;
+	color:#ecddc7;
+  background-color: #553739;
+}
+
+#featured h1{
+	color:#ecddc7;
+	border:1px solid #ecddc7;
+}
+
+.description_content_catering {
+    padding: 50px 0;
+    width: 100%;
+    background: #fff;
+    margin: 0 auto 0 auto;
+    z-index: 99;
+    position: relative;
+    background: #553739;
+    text-align: center; 
+}
+
+/* CONTACT AREA */
+
+
+#contact { 
+	background-color: #ecddc7;
+	padding-top:50px;
+/*	margin-top:-50px;*/
+}
+
+#contact-top-section {
+	margin-bottom: 30px;
+}
+
+#contact-top-section p {
+	color:#553739;
+}
+
+#contact-top-section h2 {
+	color:#553739;
+}
+
+#contact-top-section span {
+	color:#553739
+}
+
+#contact-top-section a {
+	color:#553739
+}
+
+/* Contact Area Map */
+
+.map {
+	margin-top:50px;
+	margin-bottom:-5px;
+}
+
+/* Area with Business Hours */
+
+.business-hours span{
+	float:left;
+	margin-top:2px;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.left-text p{
+    text-align: left;
+    border-bottom: 1px solid;
+    padding: 10px 0;
+}
+
+/* Area with contact details */
+
+.contact-section span{
+	float:left;
+	margin-top:2px;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.contact-icons span{
+	float:left;
+	margin-top:10px;
+	margin-right: 10px;
+}
+
+.right-text p{
+    text-align: left;
+    border-bottom: 1px solid;
+    padding: 10px;
+}
+
+/* FOOTER AREA */
+
+footer.sub_footer{
+	background-color: #553739;
+}
+
+p.sub-footer-text {
+	color:#ffffff;
+	font-size:12px;
+}
+
+.sub-footer-image img {
+	max-height:20px;
+	float:right;
+}
+
+/* When arrow in footer is hovered , the orange arrow appears */
+
+.sub-footer-icon span{
+	color:#ffffff;
+}
+
+.sub-footer-icon span:hover{
+	color:#e44d1f;
+}
+
+/*MENU SECTION */
+.background_content h1 {
+	font-size: 28px;
+    font-weight: 900;
+    color:#553739;
+    width: 225px;
+    letter-spacing: 0.040em;
+    border: 2px solid #553739;
+    margin-top: 50px;
+}
+.background_content p {
+	color:#553739;
+	font size: 20px;
+}
+#menu_overlay {
+	background-color: #ecddc7;
+	box-shadow: 10px 10px 20px;
+	opacity: 0.9;
+	height: 80%;
+	color: #000000;
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+}
+#menu_container {
+	height:100%;
+	overflow: hidden;
+	vertical-align: center;
+}
+#menu_text {
+	position: relative;
+  	top: 20%;
+  	transform: translateY(-50%);
+}
+#menu_bestek {
+	color:#553739;
+}
+#menu_click {
+	border-radius: 5px;
+	box-shadow: 5px 5px 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+ 	top: 50%;
+  	transform: translateY(-50%);
+}
+#menu_click:hover {
+	opacity: 0.7;
+}
+
+
+#pricing .food_section{
+	background color: #ecddc7;
+	text-align: center;
+	margin: 5% 0%;
+}
+	
+#pricing .food_img {
+	display:inline-block;
+	box-shadow:10px 10px 20px;
+	border-radius:10px;
+	background-color:#553739;
+	text-align:center;
+	max-width: 200px;
+	margin: 20px;
+	padding-bottom:10px;
+	overflow:hidden;
+}
+#pricing .food_img h2 {
+	font-size:24px;
+}
+#pricing a:focus {
+	outline: none !important;
+}
+#pricing a {
+	text-decoration:none;
+}
+#pricing .modal {
+  position: fixed;
+  top: 10%;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+#pricing .carousel-inner img {
+	width:100%;
+}
+#pricing .carousel-inner {
+	border-radius:10px;
+}
+
+
+
+/*------------------sliderstyle starts here------------------*/
+
+#container {
+    width: 100%;
+    height: inherit;
+}
+
+#StickyButtons {
+    z-index: 10;
+    position: absolute;
+    left:25%;
+    width: 50%;
+    top: 400px;
+}
+
+
+.starter_container {
+    margin-top: -21px;
+    padding: 0;
+    min-width: 100%;
+    overflow:auto;
+    background-color: #553739;
+    background: ;
+    background-size: ;
+}
+
+.follow_container {
+    overflow:auto;
+    background-color: #553739;
+    top: 9%;
+    margin-left: 0px;
+}
+
+.Welkom {
+    font-family: "pacifico", arial, verdana, sans-serif;
+    opacity: 0.4;
+    font-size: 50px; 
+    color: #ffffff; 
+    line-height: 60px;
+    text-shadow: 1px 1px 0px #999999, 1px -1px 0px #6B6B6B;
+}
+
+.Slider1text {
+    position: absolute; 
+    top: 90px; 
+    left: 350px; 
+    width: 600px; 
+}
+
+.Slider3text {
+    font-family: "pacifico", arial, verdana, sans-serif;
+    position: absolute; 
+    top: 90px; 
+    left: 350px; 
+    width: 600px; 
+    font-size: 50px; 
+    color: #ffffff; 
+    line-height: 60px;
+}
+
+#Slider3Pic {
+    width:35%;
+}
+
+.Slider1Buttons {
+    position: absolute; 
+    top: 400px; 
+    left: 350px; 
+    width: 600px; 
+    height: 120px; 
+    font-size: 30px; 
+    color: #ffffff; 
+    line-height: 38px;
+}
+
+
+@font-face {
+    font-family: "Budaya";
+    src: url('./Fonts/budaya.ttf') format('truetype');
+}
+
+.loading1 {
+    position: absolute; 
+    top: 0px; 
+    left: 0px;
+}
+
+.loading2 {
+    filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;
+}
+
+.loading3 {
+    position:absolute;display:block;background:url('../images/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;
+}
+
+.slideS {
+    cursor: default; 
+    position: relative; 
+    top: 0px; 
+    left: 0px; 
+    width: 1300px; 
+    height: 500px; 
+    overflow: hidden;"
+}
+
+/* jssor slider bullet navigator skin 05 css */
+        /*
+        .jssorb05 div           (normal)
+        .jssorb05 div:hover     (normal mouseover)
+        .jssorb05 .av           (active)
+        .jssorb05 .av:hover     (active mouseover)
+        .jssorb05 .dn           (mousedown)
+        */
+
+        .jssorb05 {
+            position: absolute;
+        }
+        .jssorb05 div, .jssorb05 div:hover, .jssorb05 .av {
+            position: absolute;
+            /* size of bullet elment */
+            width: 16px;
+            height: 16px;
+            background: url('../images/b05.png') no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .jssorb05 div { background-position: -7px -7px; }
+        .jssorb05 div:hover, .jssorb05 .av:hover { background-position: -37px -7px; }
+        .jssorb05 .av { background-position: -67px -7px; }
+        .jssorb05 .dn, .jssorb05 .dn:hover { background-position: -97px -7px; }
+        
+        /* jssor slider arrow navigator skin 22 css */
+        /*
+        .jssora22l                  (normal)
+        .jssora22r                  (normal)
+        .jssora22l:hover            (normal mouseover)
+        .jssora22r:hover            (normal mouseover)
+        .jssora22l.jssora22ldn      (mousedown)
+        .jssora22r.jssora22rdn      (mousedown)
+        */
+        .jssora22l, .jssora22r {
+            display: block;
+            position: absolute;
+            /* size of arrow element */
+            width: 40px;
+            height: 58px;
+            cursor: pointer;
+            background: url('../images/a22.png') center center no-repeat;
+            overflow: hidden;
+        }
+        .jssora22l { background-position: -10px -31px; }
+        .jssora22r { background-position: -70px -31px; }
+        .jssora22l:hover { background-position: -130px -31px; }
+        .jssora22r:hover { background-position: -190px -31px; }
+        .jssora22l.jssora22ldn { background-position: -250px -31px; }
+        .jssora22r.jssora22rdn { background-position: -310px -31px; }
+
+        /*________________edit button css hereeee______________________*/
+
+        .btn-default {
+          color: #553739;
+          font-family: "pacifico";
+          font-size:25px;
+          background-color: #ecddc7;
+          border-style: solid;
+          border-radius: 12px;
+          text-decoration: none;
+      }
+      .btn-default:hover,
+      .btn-default:focus,
+      .btn-default:active,
+      .btn-default.active,
+      .open > .dropdown-toggle.btn-default {
+          color: #553739;
+          background-color: #e44d1f;
+          border-color: #553739;
+      }
+      .btn-default:active,
+      .btn-default.active,
+      .open > .dropdown-toggle.btn-default {
+          background-image: none;
+      }
+
+
+/*------------------sliderstyle ends here------------------*/
+
