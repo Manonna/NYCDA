@@ -6,6 +6,9 @@ const fs	  = require ( 'fs' )
 
 const app	  = express ( )
 
+//define the location of static files to use
+app.use(express.static(__dirname + '/static'))
+
 //setting view engine and views directory
 app.set ( 'view engine', 'pug' )
 app.set ( 'views', __dirname + '/views' )

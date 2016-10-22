@@ -1,17 +1,47 @@
 html
 	head
-	body
-		h1 AWESOME FINANCIAL PLANNING APP!
-		h2 Answer these questions to predict your financial future!
-		form( method="POST", action="/index", name="_method", value="PUT" )
-			p Who is gracing me with his or her presence?
-				input( type="text", name="name" )
-			p How many years have you been on this earth?
-				input( type="number", name="age" )
-			p How much dough are you initially investing?
-				input( type="number", name="number")
-			p What will you be able to spare each month?
-				input( type="number", name="number")
-			p At what age do you plan to throw in the towel?
-				input( type="number", name="age")
+		title Ca$h Moneyz
+		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
+	body(class="teal lighten-5")
+		div.navbar-fixed
+			nav
+				div.nav-wrapper
+					a(href="#!" class="brand-logo right") The Crystal Ball of Finances
+					
+		div(class="container white")
+			div(class="container white")
+				div(class="row valign-wrapper")
+					div(class="col s2")
+						img(class= "circle responsive-img" src="http://s13.mindvalley.us/psychic-test/media/images/psychic-test-blog-post-psychic-tools-glass-ball-small.jpg")
+					div(class="coll s10")
+					span(class="flow-text")
+						h5(class="left-align") Answer these questions to predict your financial future!
+				div.row
+					form(class="col s12" method="POST", action="/index", value="PUT" )
+						div.row
+							div(class="input-field col s12")
+								input(id="name" type="text" )
+								label(for="name") Ooh na-na, what's your name?
+							div(class="input-field col s12")
+								input(id="age" type="number" length="3")
+								label(for="age") How many years on earth?
+							div(class="input-field col s12")
+								input(id="startcap" type="number")
+								label(for="startcap") How much dough to start with?
+							div(class="input-field col s12")
+								input(id="monthlyadd" type="number")
+								label(for="monthlyadd") What can you spare each month?
+							div(class="input-field col s12")
+								input(id="retireage" type="number" length="3")
+								label(for="retireage") At what age do you plan to throw in the towel?
+							div(class="button col s6")
+								button(class="btn waves-effect waves-light" type="submit" id="calc") Predict my future...
+									i(class="material-icons right")
+							
+
+
+
+
+		script(type="text/javascript", src="/javascript/jquery-3.1.1.js")
+		script(type="text/javascript", src="/javascript/materialize.js")
 
