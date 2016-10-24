@@ -11,6 +11,8 @@ app.set ( 'views', __dirname + '/views' )
 let urlencodedParser = bodyParser.urlencoded({ extended: true })
 let jsonParser 		 = bodyParser.json()
 
+app.use(express.static(__dirname + '/static'))
+
 //user list path
 app.get( '/users', (req, res) =>{
 	console.log ('rendering....')
