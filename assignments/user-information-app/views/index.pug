@@ -4,11 +4,26 @@ html
 		link(type="text/css", rel="stylesheet", href="/css/style.css")
 		script(type="text/javascript" src="/javascript/jquery-3.1.1.js")
 		script(type="text/javascript", src="/javascript/materialize.js")
-	body
-		h1 Country Information App
-		h2 Users:
-		each thing in data
-			p Name: #{thing.firstname} #{thing.lastname}
-			ul
-				li Email: #{thing.email}
-			<br>
+	body(class="red lighten-5")
+		div.navbar-fixed
+			nav(class="red lighten-1")
+				div.nav-wrapper
+					a(href="/" class="brand-logo left") User Information App
+					ul(id="nav-mobile" class="right")
+						li
+							a(href='#!') View
+						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+		div(class="container white")
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					h5(class="center-align") Users <br> These are the users in our database.
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					each thing in data
+						p Name: #{thing.firstname} #{thing.lastname}
+						ul
+							li Email: #{thing.email}
+						<br>
