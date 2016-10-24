@@ -1,5 +1,6 @@
 html
 	head
+		link(href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
 		link(type="text/css", rel="stylesheet", href="/css/style.css")
 		script(type="text/javascript" src="/javascript/jquery-3.1.1.js")
@@ -8,9 +9,20 @@ html
 		div.navbar-fixed
 			nav(class="red lighten-1")
 				div.nav-wrapper
-					a(href="/" class="brand-logo left") User Information App
-					ul(id="nav-mobile" class="right")
+					a(href="/" class="brand-logo center") User Information App
+					a(href="#" data-activates="mobile-demo" class="button-collapse")
+						i(class="material-icons") menu
+					ul(id="nav-mobile" class="right hide-on-med-and-down")
+						li.active
+							a(href='#!') View
 						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+					ul(class="side-nav" id="mobile-demo")
+						li
+							a(href='/') Home
+						li.active
 							a(href='#!') View
 						li
 							a(href='/search') Search
@@ -27,3 +39,5 @@ html
 						ul
 							li Email: #{thing.email}
 						<br>
+script.
+	$(".button-collapse").sideNav()

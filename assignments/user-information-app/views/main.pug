@@ -1,5 +1,6 @@
 html
 	head
+		link(href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
 		link(type="text/css", rel="stylesheet", href="/css/style.css")
 		script(type="text/javascript" src="/javascript/jquery-3.1.1.js")
@@ -8,8 +9,17 @@ html
 		div.navbar-fixed
 			nav(class="red lighten-1")
 				div.nav-wrapper
-					a(href="#!" class="brand-logo left") User Information App
-					ul(id="nav-mobile" class="right")
+					a(href="#!" class="brand-logo center") User Information App
+					a(href="#" data-activates="mobile-demo" class="button-collapse")
+						i(class="material-icons") menu
+					ul(id="nav-mobile" class="right hide-on-med-and-down")
+						li
+							a(href='/users') View
+						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+					ul(class="side-nav" id="mobile-demo")
 						li
 							a(href='/users') View
 						li
@@ -23,3 +33,5 @@ html
 			div(class="row valign-wrapper")
 				div(class="col s12")
 					p(class="center-align") This app allows you to view, search or add users to the database.
+script.
+	$(".button-collapse").sideNav()
