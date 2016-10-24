@@ -13,6 +13,10 @@ let jsonParser 		 = bodyParser.json()
 
 app.use(express.static(__dirname + '/static'))
 
+app.get('/', (req, res) => {
+	res.render('main')
+})
+
 //user list path
 app.get( '/users', (req, res) =>{
 	console.log ('rendering....')

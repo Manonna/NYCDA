@@ -1,0 +1,25 @@
+html
+	head
+		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
+		link(type="text/css", rel="stylesheet", href="/css/style.css")
+		script(type="text/javascript" src="/javascript/jquery-3.1.1.js")
+		script(type="text/javascript", src="/javascript/materialize.js")
+	body(class="red lighten-5")
+		div.navbar-fixed
+			nav(class="red lighten-1")
+				div.nav-wrapper
+					a(href="#!" class="brand-logo left") User Information App
+					ul(id="nav-mobile" class="right")
+						li
+							a(href='/users') View
+						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+		div(class="container white")
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					h5(class="center-align") Hi! <br> Welcome to this user information app!
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					p This app allows you to view, search or add users to the database.
