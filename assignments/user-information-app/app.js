@@ -23,7 +23,6 @@ app.get( '/users', (req, res) =>{
 	fs.readFile(__dirname + '/users.json', (err, data) => {
 		if (err) throw err
 			let parsedData = JSON.parse(data)
-		console.log(parsedData)
 		res.render('index', {data: parsedData})
 	})
 })
