@@ -32,12 +32,12 @@ app.get( '/search', (req, res) =>{
 	res.render('search')
 })
 
-//user search function
+
 app.post( '/search', urlencodedParser, (req, res) => {
 	console.log("someone searched for " + "\"" + req.body.name + "\"")
 
 	//create empty array to loop over in pug
-	let searchResult = []
+	let buttonSearch = []
 
 	//read and parse users.json
 	fs.readFile(__dirname + '/users.json', (err, data) => {
@@ -46,14 +46,40 @@ app.post( '/search', urlencodedParser, (req, res) => {
 
 		//loop over users.json to check if the search term matches first or last name
 		for (var i = parsedData.length - 1; i >= 0; i--) {
-			if (parsedData[i].firstname == req.body.name || parsedData[i].lastname == req.body.name) {
-				searchResult.push (parsedData[i])
-				res.render('result', {result: searchResult})
+			if (parsedData[i].firstname + " " + parsedData[i].lastname == req.body.name) {
+				buttonSearch.push (parsedData[i])
+				res.render('result', {result: buttonSearch})
 				//console.log(searchResult)
 			}
 		}
 	})
 })
+
+
+//user search function
+app.post( '/searchbar', urlencodedParser, (req, res) => {
+	console.log("someone searched for " + "\"" + req.body.name + "\"")
+
+	//read and parse users.json
+	fs.readFile(__dirname + '/users.json', (err, data) => {
+		let parsedData = JSON.parse(data)
+		let searchResult = []
+
+		if (err) {throw err
+		}
+		else {
+		//loop over users.json to check if the search term matches first or last name
+		for (var i = parsedData.length - 1; i >= 0; i--) {
+			if (parsedData[i].firstname.indexOf(req.body.name) == 0 || parsedData[i].lastname.indexOf(req.body.name) == 0) {
+				searchResult.push (parsedData[i])
+			}
+		}
+		res.send(searchResult)
+	}
+	})
+})
+
+
 
 //add user path
 app.get ( '/add', (req, res) =>{

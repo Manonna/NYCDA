@@ -1,3 +1,4 @@
+doctype html
 html
 	head
 		link(href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
@@ -13,6 +14,8 @@ html
 					a(href="#" data-activates="mobile-demo" class="button-collapse")
 						i(class="material-icons") menu
 					ul(id="nav-mobile" class="right hide-on-med-and-down")
+						li
+							a(href='/') Home
 						li
 							a(href='/users') View
 						li
@@ -35,10 +38,32 @@ html
 			div(class="row valign-wrapper")
 				div(class="col s12")
 					p(class="center-align") You can find users either by first or lastname.
-						form(method="POST", action="/search" name="_method", value="PUT")
+						form(autocomplete="off", method="POST", action="/search")
 							div(class="input-field col s12")
-								input(type="text", name="name" id="search")
+								input(type="text", name="name" id="search" list="resultList")
 								label(for="search") Search Users
-								button(class="btn red darken-2" type="submit" value="Search") Search
+								button#searchButton(class="btn red darken-2" type="submit" value="Search") Search
+			div(class="row valign-wrapper")
+				p(class="center-align")
+					datalist#resultList 
+
+					
+
 script.
-	$(".button-collapse").sideNav()
+	$(document).ready(function(){
+			$(".button-collapse").sideNav()		
+
+			$("#search").on("input", function() {
+				let entry = $("#search").val()
+				$.post("/searchbar", {name: entry}, function(response, status) {
+					//console.log(response)
+					//resultList	= response.data
+					let newHTML= $.map(response, function(value) {
+					return('<option value="' + value.firstname + " " + value.lastname + '">')
+					})
+					//console.log(response[i])
+					$('#resultList').html(newHTML.join(" "))
+				})
+			})
+	})
+	
