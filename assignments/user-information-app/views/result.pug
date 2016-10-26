@@ -1,13 +1,45 @@
 html
 	head
+		link(href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
 		link(type="text/css", rel="stylesheet", href="/css/style.css")
 		script(type="text/javascript" src="/javascript/jquery-3.1.1.js")
 		script(type="text/javascript", src="/javascript/materialize.js")
-	body
-		h2 These are the users that match your search:
-		ul
-			li
-				each thing in result
-					p User: #{thing.firstname} #{thing.lastname}
-					p Email: #{thing.email}
+	body(class="red lighten-5")
+		div.navbar-fixed
+			nav(class="red lighten-1")
+				div.nav-wrapper
+					a(href="#!" class="brand-logo center") User Information App
+					a(href="#" data-activates="mobile-demo" class="button-collapse")
+						i(class="material-icons") menu
+					ul(id="nav-mobile" class="right hide-on-med-and-down")
+						li.active
+							a(href='/') Home
+						li
+							a(href='/users') View
+						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+					ul(class="side-nav" id="mobile-demo")
+						li
+							a(href='/users') View
+						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+		div(class="container white")
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					each thing in result
+						h5(class="center-align") you have searched for #{thing.firstname} #{thing.lastname}
+			div(class="row valign-wrapper")
+				div(class="col s12 center-align")
+					p 
+						ul
+							li
+								each thing in result
+									p User: #{thing.firstname} #{thing.lastname}
+									p Email: #{thing.email}
+script.
+	$(".button-collapse").sideNav()
