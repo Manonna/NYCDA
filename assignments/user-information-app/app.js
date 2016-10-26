@@ -46,7 +46,7 @@ app.post( '/search', urlencodedParser, (req, res) => {
 
 		//loop over users.json to check if the search term matches first or last name
 		for (var i = parsedData.length - 1; i >= 0; i--) {
-			if (parsedData[i].firstname + " " + parsedData[i].lastname == req.body.name) {
+			if (parsedData[i].firstname + " " + parsedData[i].lastname == req.body.name || parsedData[i].firstname == req.body.name || parsedData[i].lastname == req.body.name) {
 				buttonSearch.push (parsedData[i])
 				res.render('result', {result: buttonSearch})
 				//console.log(searchResult)

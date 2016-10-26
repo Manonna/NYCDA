@@ -51,7 +51,7 @@ html
 
 script.
 	$(document).ready(function(){
-			$(".button-collapse").sideNav()		
+			$(".button-collapse").sideNav()	
 
 			$("#search").on("input", function() {
 				let entry = $("#search").val()
@@ -64,6 +64,7 @@ script.
 					//console.log(response[i])
 					$('#resultList').html(newHTML.join(" "))
 				})
+
 			})
 	})
 	
