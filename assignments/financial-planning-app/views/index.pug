@@ -1,0 +1,45 @@
+html
+	head
+		title Da Future
+		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
+		link(type="text/css", rel="stylesheet", href="/css/style.css")
+	body(class="teal lighten-5")
+		div.navbar-fixed
+			nav.teal
+				div.nav-wrapper
+					a(href="#!" class="brand-logo center") The Crystal Ball of Finances
+					
+		div(class="container white")
+			div(class="row valign-wrapper")
+				div(class="col s2")
+					img(class= "circle responsive-img" src="http://s13.mindvalley.us/psychic-test/media/images/psychic-test-blog-post-psychic-tools-glass-ball-small.jpg")
+				div(class="col s10")
+					h5(class="left-align") Answer these questions to predict your financial future!
+			div(class="container white")
+				div.row
+					form(class="col s12" method="POST", action="/index", value="PUT" )
+						div.row
+							div(class="input-field col s12")
+								input(id="name" type="text" )
+								label(for="name") Ooh na-na, what's your name?
+							div(class="input-field col s12")
+								input(id="age" type="number" length="3")
+								label(for="age") How many years on earth?
+							div(class="input-field col s12")
+								input(id="startcap" type="number")
+								label(for="startcap") How much dough to start with?
+							div(class="input-field col s12")
+								input(id="monthlyadd" type="number")
+								label(for="monthlyadd") What can you spare each month?
+							div(class="input-field col s12")
+								input(id="retireage" type="number" length="3")
+								label(for="retireage") At what age do you plan to throw in the towel?
+							div.row
+							div(class="button col s8")
+								button(class="btn teal-effect teal" type="submit" id="calc") Predict my future...
+									i(class="material-icons right")
+								
+
+		script(type="text/javascript", src="/javascript/jquery-3.1.1.js")
+		script(type="text/javascript", src="/javascript/materialize.js")
+

@@ -1,9 +1,70 @@
+doctype html
 html
 	head
-	body
-		h1 Search Users Here
-		form(method="POST", action="/search")
-			input(type="hidden", name="_method", value="PUT")
-			p Search users:
-				input(type="text", name="name")
-				input(type="submit" value="Search")
+		link(href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
+		link(type="text/css", rel="stylesheet", href="/css/style.css")
+		script(type="text/javascript" src="/javascript/jquery-3.1.1.js")
+		script(type="text/javascript", src="/javascript/materialize.js")
+	body(class="red lighten-5")
+		div.navbar-fixed
+			nav(class="red lighten-1")
+				div.nav-wrapper
+					a(href="#!" class="brand-logo center") User Information App
+					a(href="#" data-activates="mobile-demo" class="button-collapse")
+						i(class="material-icons") menu
+					ul(id="nav-mobile" class="right hide-on-med-and-down")
+						li
+							a(href='/') Home
+						li
+							a(href='/users') View
+						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+					ul(class="side-nav" id="mobile-demo")
+						li
+							a(href='/') Home
+						li
+							a(href='/users') View
+						li.active
+							a(href='#!') Search
+						li
+							a(href='/add') Add
+		div(class="container white")
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					h5(class="center-align") Enter a name to search for a user
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					p(class="center-align") You can find users either by first or lastname.
+						form(autocomplete="off", method="POST", action="/search")
+							div(class="input-field col s12")
+								input(type="text", name="name" id="search" list="resultList")
+								label(for="search") Search Users
+								button#searchButton(class="btn red darken-2" type="submit" value="Search") Search
+			div(class="row valign-wrapper")
+				p(class="center-align")
+					datalist#resultList 
+
+					
+
+script.
+	$(document).ready(function(){
+			$(".button-collapse").sideNav()	
+
+			$("#search").on("input", function() {
+				let entry = $("#search").val()
+				$.post("/searchbar", {name: entry}, function(response, status) {
+					//console.log(response)
+					//resultList	= response.data
+					let newHTML= $.map(response, function(value) {
+					return('<option value="' + value.firstname + " " + value.lastname + '">')
+					})
+					//console.log(response[i])
+					$('#resultList').html(newHTML.join(" "))
+				})
+
+			})
+	})
+	

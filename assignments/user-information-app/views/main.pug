@@ -31,15 +31,9 @@ html
 		div(class="container white")
 			div(class="row valign-wrapper")
 				div(class="col s12")
-					each thing in result
-						h5(class="center-align") you have searched for #{thing.firstname} #{thing.lastname}
+					h5(class="center-align") Hi! <br> Welcome to this user information app!
 			div(class="row valign-wrapper")
-				div(class="col s12 center-align")
-					p 
-						ul
-							li
-								each thing in result
-									p User: #{thing.firstname} #{thing.lastname}
-									p Email: #{thing.email}
+				div(class="col s12")
+					p(class="center-align") This app allows you to view, search or add users to the database.
 script.
 	$(".button-collapse").sideNav()

@@ -1,19 +1,53 @@
 html
 	head
-	body
-		h1 Add new user
-		form(method="POST", action="/add", name="_method", value="PUT")
-			p Firstname:
-			p
-				input(type="text", name="firstname")
-			<br>
-			p Lastname:
-			p
-				input(type="text", name="lastname")
-			<br>
-			p Email:
-			p
-				input(type="email", name="email")
-			p
-			<br>
-				input(type="submit", value="Add user")
+		link(href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+		link(type="text/css", rel="stylesheet", href="/css/materialize.css")
+		link(type="text/css", rel="stylesheet", href="/css/style.css")
+		script(type="text/javascript" src="/javascript/jquery-3.1.1.js")
+		script(type="text/javascript", src="/javascript/materialize.js")
+	body(class="red lighten-5")
+		div.navbar-fixed
+			nav(class="red lighten-1")
+				div.nav-wrapper
+					a(href="#!" class="brand-logo center") User Information App
+					a(href="#" data-activates="mobile-demo" class="button-collapse")
+						i(class="material-icons") menu
+					ul(id="nav-mobile" class="right hide-on-med-and-down")
+						li
+							a(href='/') Home
+						li
+							a(href='/users') View
+						li
+							a(href='/search') Search
+						li
+							a(href='/add') Add
+					ul(class="side-nav" id="mobile-demo")
+						li
+							a(href='/') Home
+						li
+							a(href='/users') View
+						li
+							a(href='/search') Search
+						li
+							a(href='#!') Add
+		div(class="container white")
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					h5(class="center-align") Add a user
+			div(class="row valign-wrapper")
+				div(class="col s12")
+					p(class="center-align") Please use this form to add a new user to the database.
+					form(method="POST", action="/add", name="_method", value="PUT")
+						div(class="input-field col s12")
+							input(type="text", name="firstname" id="firstname")
+							label(for="firstname") Firstname
+						div(class="input-field col s12")
+							input(type="text", name="lastname" id="lastname")
+							label(for="lastname") Lastname
+						div(class="input-field col s12")
+							input(type="email", name="email" id="email")
+							label(for="email") Email
+						button(class="btn red darken-2 col s2" type="submit" value="Add User") Add User
+script.
+	$(".button-collapse").sideNav()
+
