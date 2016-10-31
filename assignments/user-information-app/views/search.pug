@@ -53,17 +53,24 @@ script.
 	$(document).ready(function(){
 			$(".button-collapse").sideNav()	
 
+			let now = new Date().getTime()
+
 			$("#search").on("input", function() {
 				let entry = $("#search").val()
-				$.post("/searchbar", {name: entry}, function(response, status) {
-					//console.log(response)
-					//resultList	= response.data
-					let newHTML= $.map(response, function(value) {
-					return('<option value="' + value.firstname + " " + value.lastname + '">')
+				if (new Date().getTime() - now > 300) {
+					$.post("/searchbar", {name: entry}, function(response, status) {
+						//console.log(response)
+						//resultList	= response.data
+						let newHTML= $.map(response, function(value) {
+						return('<option value="' + value.firstname + " " + value.lastname + '">')
+						})
+						//console.log(response[i])
+						$('#resultList').html(newHTML.join(" "))
+
+							console.log("i ran once per 300 milliseconds")
+							now = new Date().getTime()
 					})
-					//console.log(response[i])
-					$('#resultList').html(newHTML.join(" "))
-				})
+				}
 
 			})
 	})
