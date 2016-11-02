@@ -28,12 +28,13 @@ app.post( '/guestbook', urlencodedParser, (req, res) => {
 	let body  = req.body.body
 
 	pg.connect(connectionString, (err, client, done) => {
-		console.log("this works")
 		client.query('insert into messages (title, body) values (\'' + title + '\', \'' + body + '\')', (err) => {
 			if (err) throw err
-			else console.log ("message posted")
-			done()
-			pg.end()
+			else client.query('select * from messages', (err, res) => {
+				console.log(res.rows)
+				done()
+				pg.end()
+			})
 		})
 	})
 	res.render( 'messages' )
