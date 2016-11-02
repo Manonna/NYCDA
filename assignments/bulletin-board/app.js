@@ -1,15 +1,16 @@
 'use strict'
 //require necessary modules
-const express = require('express')
-const fs	  = require('fs')
-const pg 	  = require('pg')
+const express	 = require('express')
+const fs	  	 = require('fs')
+const pg 	  	 = require('pg')
+const bodyParser = require('body-parser')
 
 const app = express()
 //set connection path to database
 const connectionString = 'postgres://postgres:postgres@localhost/bulletinboard'
 
 app.set ( 'view engine', 'pug' )
-app.set ( 'views', dirname + '/views' )
+app.set ( 'views', __dirname + '/views' )
 
 //configure bodyparser
 let urlencodedParser = bodyParser.urlencoded( { extended: true } )

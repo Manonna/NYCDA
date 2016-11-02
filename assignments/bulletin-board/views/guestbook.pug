@@ -1,0 +1,12 @@
+html
+	head
+	body
+		h1 Guestbook
+
+		form(action="/guestbook")
+		p title: <br>
+		input(type="text" name="title")
+		p message: <br>
+		textarea(type="text" name="body" rows="8" cols="30")
+		<br>
+		input(type="submit" value="Post")
