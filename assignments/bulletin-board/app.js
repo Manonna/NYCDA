@@ -4,17 +4,14 @@ const express	 = require('express')
 const fs	  	 = require('fs')
 const pg 	  	 = require('pg')
 const bodyParser = require('body-parser')
-
-const app = express()
+const app 		 = express()
 //set connection path to database
 const connectionString = 'postgres://postgres:postgres@localhost/bulletinboard'
-
+//configure pug
 app.set ( 'view engine', 'pug' )
 app.set ( 'views', __dirname + '/views' )
-
 //configure bodyparser
 let urlencodedParser = bodyParser.urlencoded( { extended: true } )
-
 //set path to static files
 app.use( express.static( __dirname + '/static' ))
 
@@ -24,25 +21,32 @@ app.get( '/bulletinboard', ( req, res ) => {
 } )
 
 app.post( '/guestbook', urlencodedParser, (req, res) => {
-	let title = req.body.title
-	let body  = req.body.body
+	let title 	 = req.body.title
+	let body  	 = req.body.body
 
 	pg.connect(connectionString, (err, client, done) => {
 		client.query('insert into messages (title, body) values (\'' + title + '\', \'' + body + '\')', (err) => {
 			if (err) throw err
-			else client.query('select * from messages', (err, res) => {
-				console.log(res.rows)
+			else console.log("message posted")
 				done()
 				pg.end()
-			})
 		})
 	})
-	res.render( 'messages' )
+	res.redirect('/messages')
 } )
 
 //path to guestbook messages
 app.get( '/messages', ( req, res ) => {
-	res.render( 'messages' )
+	pg.connect(connectionString, (err, client, done) => {
+		client.query('select * from messages', (err, result) => {
+			console.log(result.rows)
+			res.render( 'messages', {data: result.rows})
+			done()
+			pg.end()
+
+		})
+	})
+	
 })
 
 
