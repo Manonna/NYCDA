@@ -19,7 +19,7 @@ app.use( express.static( __dirname + '/static' ))
 app.get( '/bulletinboard', ( req, res ) => {
 	res.render( 'guestbook' )
 } )
-
+//Make messages post to the postgreSQL database
 app.post( '/guestbook', urlencodedParser, (req, res) => {
 	let title 	 = req.body.title
 	let body  	 = req.body.body
@@ -27,7 +27,7 @@ app.post( '/guestbook', urlencodedParser, (req, res) => {
 	pg.connect(connectionString, (err, client, done) => {
 		client.query('insert into messages (title, body) values (\'' + title + '\', \'' + body + '\')', (err) => {
 			if (err) throw err
-			else console.log("message posted")
+			else console.log("New message posted")
 				done()
 				pg.end()
 		})
@@ -36,6 +36,7 @@ app.post( '/guestbook', urlencodedParser, (req, res) => {
 } )
 
 //path to guestbook messages
+//selects the messages from database to send to frontend
 app.get( '/messages', ( req, res ) => {
 	pg.connect(connectionString, (err, client, done) => {
 		client.query('select * from messages', (err, result) => {
@@ -46,9 +47,6 @@ app.get( '/messages', ( req, res ) => {
 	})
 	
 })
-
-
-
 
 //define port to listen on
 app.listen(8000, () => {
