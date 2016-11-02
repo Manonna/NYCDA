@@ -1,0 +1,17 @@
+{
+  "name": "bulletin-board",
+  "version": "0.0.1",
+  "description": "a guest-book with postgres database",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "pg": "^6.1.0",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manon",
+  "license": "MIT"
+}
