@@ -6,7 +6,7 @@ const pg 	  	 = require('pg')
 const bodyParser = require('body-parser')
 const app 		 = express()
 //set connection path to database
-const connectionString = 'postgres://postgres:postgres@localhost/bulletinboard'
+const connectionString = 'postgres://' + process.env.POSTGRES_USER + ':' + process.env.POSTGRES_PASSWORD + '@localhost/bulletinboard'
 //configure pug
 app.set ( 'view engine', 'pug' )
 app.set ( 'views', __dirname + '/views' )
