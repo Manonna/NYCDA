@@ -19,8 +19,24 @@ let urlencodedParser = bodyParser.urlencoded( { extended: true } )
 app.use( express.static( __dirname + '/static' ))
 
 //Path to guestbook form
-app.get( '/guestbook', ( req, res ) => {
+app.get( '/bulletinboard', ( req, res ) => {
 	res.render( 'guestbook' )
+} )
+
+app.post( '/guestbook', urlencodedParser, (req, res) => {
+	let title = req.body.title
+	let body  = req.body.body
+
+	pg.connect(connectionString, (err, client, done) => {
+		console.log("this works")
+		client.query('insert into messages (title, body) values (\'' + title + '\', \'' + body + '\')', (err) => {
+			if (err) throw err
+			else console.log ("message posted")
+			done()
+			pg.end()
+		})
+	})
+	res.render( 'messages' )
 } )
 
 //path to guestbook messages
