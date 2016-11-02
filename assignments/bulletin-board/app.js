@@ -39,11 +39,9 @@ app.post( '/guestbook', urlencodedParser, (req, res) => {
 app.get( '/messages', ( req, res ) => {
 	pg.connect(connectionString, (err, client, done) => {
 		client.query('select * from messages', (err, result) => {
-			console.log(result.rows)
 			res.render( 'messages', {data: result.rows})
 			done()
 			pg.end()
-
 		})
 	})
 	
