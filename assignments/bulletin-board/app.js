@@ -1,13 +1,13 @@
 'use strict'
-//require necessary modules
+//require necessary libraries
 const express	 = require('express')
 const fs	  	 = require('fs')
 const pg 	  	 = require('pg')
 const bodyParser = require('body-parser')
 const app 		 = express()
 //set connection path to database
-const connectionString = 'postgres://' + process.env.POSTGRES_USER + ':' + process.env.POSTGRES_PASSWORD + '@localhost/bulletinboard'
-//configure pug
+const connectionString = 'postgres://postgres:postgres@localhost/bulletinboard'
+//set the engine to pug and the view folder to the one in this location
 app.set ( 'view engine', 'pug' )
 app.set ( 'views', __dirname + '/views' )
 //configure bodyparser
@@ -36,7 +36,7 @@ app.post( '/guestbook', urlencodedParser, (req, res) => {
 } )
 
 //path to guestbook messages
-//selects the messages from database to send to frontend
+//Takes the messages from database to render on messages page
 app.get( '/messages', ( req, res ) => {
 	pg.connect(connectionString, (err, client, done) => {
 		client.query('select * from messages', (err, result) => {
