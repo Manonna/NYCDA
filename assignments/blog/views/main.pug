@@ -17,10 +17,13 @@ html
 			a(href='/logout') log out
 
 		else
-			form(action='/login', method='post')
+			form(action='/login' && '/signup', method='post')
 				label email
 				input#email(name='email', required)
 				label password
 				input#password(name='password', required)
-				input#submit(type='submit', value='login')
+				input#submit(type='submit',formaction='/login', value='login')
+				label name
+				input#name(name='name')
+				input#signup(type='submit', formaction='/signup' value='sign up')
 		h2#error-message= message

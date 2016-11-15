@@ -77,6 +77,46 @@ app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
 		res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
 	} )
 } )
+//create signup functionality
+app.post('/signup', bodyParser.urlencoded( {extended: true} ), ( req, res) => {
+	if( req.body.name.length === 0 ) {
+		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your name") )
+		return
+	}
+	if( req.body.email.length === 0 ) {
+		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your email" ) )
+		return
+	}
+	if ( req.body.password.length === 0 ) {
+		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your password" ) )
+		return
+	}
+	User.findOne( {
+		where: {
+			email: req.body.email
+		}
+	}).then( (user) => {
+		if (user !== null) {
+			res.redirect( '/?message=' + encodeURIComponent( "You already have an account, please login" ) )
+		}
+		else if (user === null) {
+			User.create( {
+				name: req.body.name,
+				email: req.body.email,
+				password: req.body.password
+			}).then( () => {
+				User.findOne({
+					where: {
+						email: req.body.email
+					}
+				})
+			}).then( (user) => {
+					req.session.user = user
+					res.redirect('/home')
+				})
+		}
+	})
+})
 //create logout option
 app.get( '/logout', ( req, res ) => {
 	req.session.destroy( ( err )=> {
