@@ -15,15 +15,32 @@ html
 			a(href='/home') view profile
 			br
 			a(href='/logout') log out
+			br
+			h4 Air your laundry:
+			form(action='/blogpost' , method='post', autocomplete='off')
+				label title
+				br
+				input#title(name='title', required)
+				br
+				label body
+				br
+				textarea#body(name='body', type='text', rows='10' cols='50' required)
+				input#create(type='submit', value='post')
 
 		else
-			form(action='/login' && '/signup', method='post')
+			form(action='/login' && '/signup', method='post', autocomplete='off')
 				label email
+				br
 				input#email(name='email', required)
+				br
 				label password
+				br
 				input#password(name='password', required)
 				input#submit(type='submit',formaction='/login', value='login')
-				label name
+				br
+				br
+				label username
+				br
 				input#name(name='name')
 				input#signup(type='submit', formaction='/signup' value='sign up')
 		h2#error-message= message

@@ -104,16 +104,9 @@ app.post('/signup', bodyParser.urlencoded( {extended: true} ), ( req, res) => {
 				name: req.body.name,
 				email: req.body.email,
 				password: req.body.password
-			}).then( () => {
-				User.findOne({
-					where: {
-						email: req.body.email
-					}
-				})
-			}).then( (user) => {
-					req.session.user = user
-					res.redirect('/home')
-				})
+			}).then (() => {
+				res.redirect('/home')
+			})
 		}
 	})
 })
