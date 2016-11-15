@@ -20,11 +20,13 @@ let User = db.define( 'user', {
 	email: {type: Sequelize.STRING, unique: true},
 	password: Sequelize.STRING
 })
-
+//create blogpost model
 let Blogpost = db.define( 'blogpost', {
 	title: Sequelize.STRING,
 	body: Sequelize.STRING
 })
+//create relationships
+User.hasMany(Blogpost)
 
 app.use( session( {
 	secret: 'muy secreto si si',
@@ -134,10 +136,19 @@ app.post('/blogpost', bodyParser.urlencoded( {extended: true} ), ( req, res ) =>
 		res.redirect('/?message=' + encodeURIComponent("Your post needs some body..") )
 		return
 	}
-	Blogpost.create( {
-		title: req.body.title,
-		body: req.body.laundry
+	User.findOne({
+		where: {
+			name: req.session.user.name
+		}
+	}).then( (user) => {
+		user.createBlogpost({
+			title: req.body.title,
+			body: req.body.laundry
+	}).then( () => {
+		res.redirect('/home')
 	})
+	})
+	
 
 })
 
