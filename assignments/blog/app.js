@@ -21,6 +21,11 @@ let User = db.define( 'user', {
 	password: Sequelize.STRING
 })
 
+let Blogpost = db.define( 'blogpost', {
+	title: Sequelize.STRING,
+	body: Sequelize.STRING
+})
+
 app.use( session( {
 	secret: 'muy secreto si si',
 	resave: true,
@@ -119,13 +124,33 @@ app.get( '/logout', ( req, res ) => {
 		res.redirect( '/?message=' + encodeURIComponent( "Successfully logged out" ) )
 	} )
 } )
+//functionality for creating a new blogpost
+app.post('/blogpost', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
+	if (req.body.title.length === 0) {
+		res.redirect('/?message=' + encodeURIComponent("Please give your post a title") )
+		return
+	}
+	if (req.body.laundry.length === 0) {
+		res.redirect('/?message=' + encodeURIComponent("Your post needs some body..") )
+		return
+	}
+	Blogpost.create( {
+		title: req.body.title,
+		body: req.body.laundry
+	})
+
+})
 
 db.sync( {force: true} ).then( ( ) => {
 	User.create( {
 		name: "mrAnderson",
 		email: "mr@ander.son",
 		password: "theone"
-	} ).then( ( ) => {
+	} )
+	Blogpost.create( {
+		title: "secretlover",
+		body: "I love neo"
+	}).then( ( ) => {
 		let server = app.listen( 8000, ( ) => {
 			console.log( 'I hear ya on port: ' + server.address( ).port )
 		} )
