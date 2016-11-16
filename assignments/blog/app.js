@@ -25,8 +25,15 @@ let Blogpost = db.define( 'blogpost', {
 	title: Sequelize.STRING,
 	body: Sequelize.STRING
 })
+//create comment model
+let Comment = db.define( 'comment', {
+	content: Sequelize.STRING
+})
 //create relationships
-User.hasMany(Blogpost)
+User.hasMany( Blogpost )
+Blogpost.belongsTo( User )
+User.hasMany( Comment )
+Comment.belongsTo( User )
 
 app.use( session( {
 	secret: 'muy secreto si si',
@@ -48,16 +55,24 @@ app.get( '/', ( req, res ) => {
 		user: req.session.user
 	} )
 } )
-//homepage configuration
+//homepage configuration = the profile
 app.get( '/home', ( req, res ) => {
-	let user = req.session.user
-	if ( user === undefined ) {
+	let curuser = req.session.user
+	if ( curuser === undefined ) {
 		res.redirect( '/?message=' + encodeURIComponent( 'Please log in to view your profile' ) )
 	} else {
-		res.render( 'home', {
-			user: user
-		} )
+		User.findOne({ 
+			where: {
+				email: req.session.user.email
+			},
+			include: [Blogpost]
+		}).then( (user) =>{
+				res.render( 'home', {
+					user: user
+				})
+			})
 	}
+
 } )
 //create login functionality
 app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
@@ -84,7 +99,7 @@ app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
 		res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
 	} )
 } )
-//create signup functionality
+//create signup functionality = new users
 app.post('/signup', bodyParser.urlencoded( {extended: true} ), ( req, res) => {
 	if( req.body.name.length === 0 ) {
 		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your name") )
@@ -128,14 +143,18 @@ app.get( '/logout', ( req, res ) => {
 } )
 //functionality for creating a new blogpost
 app.post('/blogpost', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
+	//error handling
+	//empty title:
 	if (req.body.title.length === 0) {
 		res.redirect('/?message=' + encodeURIComponent("Please give your post a title") )
 		return
 	}
+	//empty body:
 	if (req.body.laundry.length === 0) {
 		res.redirect('/?message=' + encodeURIComponent("Your post needs some body..") )
 		return
 	}
+	//find the current user to link the post to the right user.
 	User.findOne({
 		where: {
 			name: req.session.user.name
@@ -148,8 +167,6 @@ app.post('/blogpost', bodyParser.urlencoded( {extended: true} ), ( req, res ) =>
 		res.redirect('/home')
 	})
 	})
-	
-
 })
 
 db.sync( {force: true} ).then( ( ) => {
@@ -157,10 +174,11 @@ db.sync( {force: true} ).then( ( ) => {
 		name: "mrAnderson",
 		email: "mr@ander.son",
 		password: "theone"
-	} )
-	Blogpost.create( {
-		title: "secretlover",
-		body: "I love neo"
+	} ).then( (user) =>{
+		user.createBlogpost( {
+			title: "secretlover",
+			body: "I love neo"
+		})
 	}).then( ( ) => {
 		let server = app.listen( 8000, ( ) => {
 			console.log( 'I hear ya on port: ' + server.address( ).port )

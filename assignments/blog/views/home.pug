@@ -3,6 +3,10 @@ html
 	body
 		h2= user.name
 		h3= user.email
+		h4 My Posts:
+		p
+			each thing in user.blogposts
+					li #{thing.title} <br> #{thing.body} <br><br>
 
 		a(href='/') home
 		br
