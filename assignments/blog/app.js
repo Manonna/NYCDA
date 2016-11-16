@@ -34,6 +34,8 @@ User.hasMany( Blogpost )
 Blogpost.belongsTo( User )
 User.hasMany( Comment )
 Comment.belongsTo( User )
+Blogpost.hasMany( Comment )
+Comment.belongsTo( Blogpost )
 
 app.use( session( {
 	secret: 'muy secreto si si',
@@ -65,15 +67,43 @@ app.get( '/home', ( req, res ) => {
 			where: {
 				email: req.session.user.email
 			},
-			include: [Blogpost]
+			include: [{
+				model: Blogpost,
+				attributes: ['title', 'body']
+			} ]
 		}).then( (user) =>{
 				res.render( 'home', {
 					user: user
 				})
 			})
 	}
-
 } )
+app.get('/allposts', (req, res) => {
+	Blogpost.findAll({
+		attributes: ['title', 'body'],
+		include: [{
+			model: User,
+			attributes: ['name']
+		}]
+	}).then((posts)=>{
+		res.send(posts)
+	})
+})
+
+app.get('/ownposts', (req, res) => {
+	User.findOne({
+		where: {
+			email: req.session.user.email
+		},
+		attributes: ['name'],
+		include: [{
+			model:Blogpost,
+			attributes: ['title', 'body']
+		}]
+	}).then( (user) =>{
+		res.send( user )
+	})
+})
 //create login functionality
 app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
 	if( req.body.email.length === 0 ) {
