@@ -9,7 +9,7 @@ const app 		 = express( )
 //set static resources to the following directory
 app.use( express.static(__dirname + '/static' ) )
 //setup link to database
-const db 		 = new Sequelize ( 'blog', 'postgres', 'postgres', {
+const db 		 = new Sequelize ( 'blog', process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
 	server: 'localhost',
 	dialect: 'postgres'
 } )
@@ -78,6 +78,7 @@ app.get( '/home', ( req, res ) => {
 			})
 	}
 } )
+//list of all posts
 app.get('/allposts', (req, res) => {
 	Blogpost.findAll({
 		attributes: ['title', 'body'],
@@ -86,10 +87,10 @@ app.get('/allposts', (req, res) => {
 			attributes: ['name']
 		}]
 	}).then((posts)=>{
-		res.send(posts)
+		res.render('all', {posts:posts})
 	})
 })
-
+// list of current users posts
 app.get('/ownposts', (req, res) => {
 	User.findOne({
 		where: {

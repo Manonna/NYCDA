@@ -1,0 +1,7 @@
+html
+	head
+	body
+		ul
+			each post in posts
+				li 
+					a(href='/view') #{post.title}</a> by #{post.user.name} <br> #{post.body} 
