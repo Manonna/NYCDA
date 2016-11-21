@@ -4,6 +4,7 @@ const express 	 = require ( 'express' )
 const Sequelize  = require ( 'sequelize' )
 const bodyParser = require ( 'body-parser' )
 const session 	 = require ( 'express-session' )
+const bcrypt	 = require ( 'bcrypt-nodejs' )
 //create app
 const app 		 = express( )
 //set static resources to the following directory
