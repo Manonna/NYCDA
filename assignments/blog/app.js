@@ -47,178 +47,21 @@ app.use( session( {
 //setting views to the following directory and engine to pug
 app.set( 'views', __dirname + '/views' )
 app.set( 'view engine', 'pug' )
-//test server connection
-//app.get( '/ping', ( req, res ) => {
-//	res.send( 'pong' )
-//} )
 
-app.get( '/', ( req, res ) => {
-	res.render( 'main', {
-		message: req.query.message,
-		user: req.session.user
-	} )
-} )
-//homepage configuration = the profile
-app.get( '/home', ( req, res ) => {
-	let curuser = req.session.user
-	if ( curuser === undefined ) {
-		res.redirect( '/?message=' + encodeURIComponent( 'Please log in to view your profile' ) )
-	} else {
-		User.findOne({ 
-			where: {
-				email: req.session.user.email
-			},
-			include: [{
-				model: Blogpost,
-				attributes: ['title', 'body']
-			} ]
-		}).then( (user) =>{
-				res.render( 'home', {
-					user: user
-				})
-			})
-	}
-} )
-//list of all posts
-app.get('/allposts', (req, res) => {
-	Blogpost.findAll({
-		attributes: ['title', 'body'],
-		include: [{
-			model: User,
-			attributes: ['name']
-		}]
-	}).then((posts)=>{
-		res.render('all', {posts:posts})
-	})
-})
-// list of current users posts
-app.get('/ownposts', (req, res) => {
-	User.findOne({
-		where: {
-			email: req.session.user.email
-		},
-		attributes: ['name'],
-		include: [{
-			model:Blogpost,
-			attributes: ['title', 'body']
-		}]
-	}).then( (user) =>{
-		res.send( user )
-	})
-})
-//create login functionality
-app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, response ) => {
-	let password = req.body.password
+//require routes
+let loginlogoutRouter = require(__dirname + '/routes/loginlogout')
+let signupRouter = require (__dirname + '/routes/signup')
+let homeRouter = require(__dirname + '/routes/home')
+let writepostRouter = require(__dirname + '/routes/writepost')
+let ownpostsRouter = require(__dirname + '/routes/ownposts')
+let allpostsRouter = require(__dirname + '/routes/allposts')
 
-	if( req.body.email.length === 0 ) {
-		response.redirect( '/?message=' + encodeURIComponent( "Please fill out your email" ) )
-		return
-	}
-	if ( req.body.password.length === 0 ) {
-		response.redirect( '/?message=' + encodeURIComponent( "Please fill out your password" ) )
-		return
-	}
-	User.findOne( {
-		where: {
-			email: req.body.email
-		}
-	} ).then( ( user ) => {
-		bcrypt.compare(password, user.password, (err, res) =>{
-			console.log(res)
-			if (user !== null && res == true) {
-				req.session.user = user
-				response.redirect( '/home' )
-			} else {
-				response.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
-			}
-			}, ( err ) => {
-				response.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
-			} )
-		})
-})
-		//if ( user !== null && req.body.password === user.password ) {
-		//	req.session.user = user
-		//	res.redirect( '/home' )
-	//	} else {
-	//		res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
-//		}
-//	}, ( err ) => {
-//		res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
-//	} )
-//} )
-//create signup functionality = new users
-app.post('/signup', bodyParser.urlencoded( {extended: true} ), ( req, res) => {
-	let password = req.body.password
-
-	if( req.body.name.length === 0 ) {
-		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your name") )
-		return
-	}
-	if( req.body.email.length === 0 ) {
-		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your email" ) )
-		return
-	}
-	if ( req.body.password.length === 0 ) {
-		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your password" ) )
-		return
-	}
-	User.findOne( {
-		where: {
-			email: req.body.email
-		}
-	}).then( (user) => {
-		if (user !== null) {
-			res.redirect( '/?message=' + encodeURIComponent( "You already have an account, please login" ) )
-		}
-		else if (user === null) {
-			bcrypt.hash(password, null, null, (err, hash) => {
-				User.create( {
-				name: req.body.name,
-				email: req.body.email,
-				password: hash
-				}).then (() => {
-					res.redirect('/home')
-					})
-			})
-		}
-	})
-})
-//create logout option
-app.get( '/logout', ( req, res ) => {
-	req.session.destroy( ( err )=> {
-		if ( err ) {
-			throw err
-		}
-		res.redirect( '/?message=' + encodeURIComponent( "Successfully logged out" ) )
-	} )
-} )
-//functionality for creating a new blogpost
-app.post('/blogpost', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
-	//error handling
-	//empty title:
-	if (req.body.title.length === 0) {
-		res.redirect('/?message=' + encodeURIComponent("Please give your post a title") )
-		return
-	}
-	//empty body:
-	if (req.body.laundry.length === 0) {
-		res.redirect('/?message=' + encodeURIComponent("Your post needs some body..") )
-		return
-	}
-	//find the current user to link the post to the right user.
-	User.findOne({
-		where: {
-			name: req.session.user.name
-		}
-	}).then( (user) => {
-		user.createBlogpost({
-			title: req.body.title,
-			body: req.body.laundry
-	}).then( () => {
-		res.redirect('/home')
-	})
-	})
-})
+app.use('/', loginlogoutRouter)
+app.use('/', signupRouter)
+app.use('/', homeRouter)
+app.use('/', writepostRouter)
+app.use('/', ownpostsRouter)
+app.use('/', allpostsRouter)
 
 db.sync( {force: true} ).then( ( ) => {
 	bcrypt.hash("theone", null, null, (err, hash) => {
@@ -241,8 +84,3 @@ db.sync( {force: true} ).then( ( ) => {
 	console.log( err )
 }  )
 })
-
-//listen on port 8000
-//app.listen( 8000, ( ) => {
-//	console.log( "I hear ya, 8000" )
-//} )
