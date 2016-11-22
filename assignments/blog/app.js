@@ -4,6 +4,7 @@ const express 	 = require ( 'express' )
 const Sequelize  = require ( 'sequelize' )
 const bodyParser = require ( 'body-parser' )
 const session 	 = require ( 'express-session' )
+const bcrypt	 = require ( 'bcrypt-nodejs' )
 //create app
 const app 		 = express( )
 //set static resources to the following directory
@@ -106,13 +107,15 @@ app.get('/ownposts', (req, res) => {
 	})
 })
 //create login functionality
-app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
+app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, response ) => {
+	let password = req.body.password
+
 	if( req.body.email.length === 0 ) {
-		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your email" ) )
+		response.redirect( '/?message=' + encodeURIComponent( "Please fill out your email" ) )
 		return
 	}
 	if ( req.body.password.length === 0 ) {
-		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your password" ) )
+		response.redirect( '/?message=' + encodeURIComponent( "Please fill out your password" ) )
 		return
 	}
 	User.findOne( {
@@ -120,18 +123,33 @@ app.post( '/login', bodyParser.urlencoded( {extended: true} ), ( req, res ) => {
 			email: req.body.email
 		}
 	} ).then( ( user ) => {
-		if ( user !== null && req.body.password === user.password ) {
-			req.session.user = user
-			res.redirect( '/home' )
-		} else {
-			res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
-		}
-	}, ( err ) => {
-		res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
-	} )
-} )
+		bcrypt.compare(password, user.password, (err, res) =>{
+			console.log(res)
+			if (user !== null && res == true) {
+				req.session.user = user
+				response.redirect( '/home' )
+			} else {
+				response.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
+			}
+			}, ( err ) => {
+				response.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
+			} )
+		})
+})
+		//if ( user !== null && req.body.password === user.password ) {
+		//	req.session.user = user
+		//	res.redirect( '/home' )
+	//	} else {
+	//		res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
+//		}
+//	}, ( err ) => {
+//		res.redirect( '/?message=' + encodeURIComponent( "Invalid email or password" ) )
+//	} )
+//} )
 //create signup functionality = new users
 app.post('/signup', bodyParser.urlencoded( {extended: true} ), ( req, res) => {
+	let password = req.body.password
+
 	if( req.body.name.length === 0 ) {
 		res.redirect( '/?message=' + encodeURIComponent( "Please fill out your name") )
 		return
@@ -153,12 +171,14 @@ app.post('/signup', bodyParser.urlencoded( {extended: true} ), ( req, res) => {
 			res.redirect( '/?message=' + encodeURIComponent( "You already have an account, please login" ) )
 		}
 		else if (user === null) {
-			User.create( {
+			bcrypt.hash(password, null, null, (err, hash) => {
+				User.create( {
 				name: req.body.name,
 				email: req.body.email,
-				password: req.body.password
-			}).then (() => {
-				res.redirect('/home')
+				password: hash
+				}).then (() => {
+					res.redirect('/home')
+					})
 			})
 		}
 	})
@@ -201,10 +221,11 @@ app.post('/blogpost', bodyParser.urlencoded( {extended: true} ), ( req, res ) =>
 })
 
 db.sync( {force: true} ).then( ( ) => {
-	User.create( {
+	bcrypt.hash("theone", null, null, (err, hash) => {
+		User.create( {
 		name: "mrAnderson",
 		email: "mr@ander.son",
-		password: "theone"
+		password: hash
 	} ).then( (user) =>{
 		user.createBlogpost( {
 			title: "secretlover",
@@ -219,6 +240,7 @@ db.sync( {force: true} ).then( ( ) => {
 	console.log( 'sync failed: ' )
 	console.log( err )
 }  )
+})
 
 //listen on port 8000
 //app.listen( 8000, ( ) => {
